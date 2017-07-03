@@ -20,3 +20,7 @@ var exphbs = require('express-handlebars');
 // console.log(exphbs);
 app.engine('handlerbars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlerbars');
+
+var router = require('./controllers/controller.js');
+//console.log(router);
+// app.use('/', router);
