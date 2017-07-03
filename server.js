@@ -24,3 +24,8 @@ app.set('view engine', 'handlerbars');
 var router = require('./controllers/controller.js');
 //console.log(router);
 // app.use('/', router);
+
+// open server
+var port = process.env.PORT || 3000;
+app.listen(port);
+console.log('Listening on ' + port);
