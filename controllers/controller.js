@@ -33,3 +33,6 @@ router.post('/misc/update/:id', function(req, res) {
     res.redirect('/index');
   });
 });
+
+// exports routes
+module.exports = router;
