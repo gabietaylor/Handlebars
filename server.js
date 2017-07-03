@@ -11,3 +11,6 @@ var app = express();
 // applies content from pudlib dir.
 app.use(express.static(process.cwd() + '/public'));
 app.use(express.static('public'));
+
+// Parse 
+app.use(bodyParser.urlencoded({ extended: false}));
