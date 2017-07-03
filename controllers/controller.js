@@ -19,3 +19,17 @@ router.get('/index', function(req, res) {
     res.render('index', miscObject);
   });
 });
+
+// Create a new misc item
+router.post('/misc/create', function(req, res) {
+  misc.insertMisc(req.body.misc_name, function() {
+    res.redirect('/index');
+  });
+});
+
+// update a new misc item
+router.post('/misc/update/:id', function(req, res) {
+  misc.updateMisc(req.params.id, function() {
+    res.redirect('/index');
+  });
+});
