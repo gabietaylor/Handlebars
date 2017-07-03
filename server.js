@@ -14,3 +14,9 @@ app.use(express.static('public'));
 
 // Parse 
 app.use(bodyParser.urlencoded({ extended: false}));
+
+// Handlerbars
+var exphbs = require('express-handlebars');
+// console.log(exphbs);
+app.engine('handlerbars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlerbars');
