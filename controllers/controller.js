@@ -22,7 +22,7 @@ module.exports = function (app) {
     });
 
     app.post("/", function (req, res) {
-        connection.query("INSERT INTO seventeen (Country, happinessRank) VALUES (?, ?)", [req.body.Country, req.body.happinessRank],
+        connection.query("INSERT INTO gayness (Country, happinessRank) VALUES (?, ?)", [req.body.Country, req.body.happinessRank],
             function (err, result) {
                 if (err) {
                     throw err;
@@ -32,7 +32,7 @@ module.exports = function (app) {
     });
 
     app.delete("/:Country", function(req, res) {
-        connection.query("DELETE FROM quotes WHERE Country = ?", [req.params.Country], function(err, result) {
+        connection.query("DELETE FROM gayness WHERE Country = ?", [req.params.Country], function(err, result) {
             if (err) {
                 throw err;
             }
