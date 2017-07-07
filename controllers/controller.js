@@ -12,17 +12,17 @@ module.exports = function (app) {
     });
 
     app.get("/", function (req, res) {
-        connection.query("SELECT * FROM `2017` JOIN `2016` WHERE `2017`.`Country` = `2016`.`Country` LIMIT 10;",
+        connection.query("SELECT * FROM `seventeen` JOIN `sixteen` WHERE `seventeen`.`Country` = `sixteen`.`Country` LIMIT 10;",
             function (err, data) {
                 if (err) {
                     throw err;
                 }
-                res.render("index", {2017: data, 2016: data});
+                res.render("index", {seventeen: data, sixteen: data});
             });
     });
 
-/*    app.post("/", function (req, res) {
-        connection.query("INSERT INTO 2017 (Country, Country) VALUES (?, ?)", [req.body.country, req.body.country],
+    app.post("/", function (req, res) {
+        connection.query("INSERT INTO seventeen (Country, happinessRank) VALUES (?, ?)", [req.body.Country, req.body.happinessRank],
             function (err, result) {
                 if (err) {
                     throw err;
@@ -32,12 +32,12 @@ module.exports = function (app) {
     });
 
     app.delete("/:Country", function(req, res) {
-        connection.query("DELETE FROM quotes WHERE Country = ?", [req.params.country], function(err, result) {
+        connection.query("DELETE FROM quotes WHERE Country = ?", [req.params.Country], function(err, result) {
             if (err) {
                 throw err;
             }
             res.redirect("/");
         });
-    });*/
+    });
 
 }
