@@ -1,38 +1,43 @@
-// NPMs 
-var express = require('express');
-// console.log(express);
-var router = express.Router();
-// console.log(router);
-var misc = require('../models/model.js');
-// console.log(misc);
+var mysql = require("mysql");
 
-//Create route - Always Redirect
-router.get('/', function(req, res) {
-	res.redirect('/index');
-});
 
-// index page renders all misc items to the DOM
-router.get('/index', function(req, res) {
-  misc.selectAll(function(data) {
-    var miscObject = { miscs: data };
-    console.log(miscObject);
-    res.render('index', miscObject);
-  });
-});
+module.exports = function (app) {
 
-// Create a new misc item
-router.post('/misc/create', function(req, res) {
-  misc.insertMisc(req.body.misc_name, function() {
-    res.redirect('/index');
-  });
-});
+    // Creating the connection to the mysql database
+    var connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'Gabie748.',
+        database: 'happinessDB'
+    });
 
-// update a new misc item
-router.post('/misc/update/:id', function(req, res) {
-  misc.updateMisc(req.params.id, function() {
-    res.redirect('/index');
-  });
-});
+    app.get("/", function (req, res) {
+        connection.query("SELECT * FROM `2017` JOIN `2016` WHERE `2017`.`Country` = `2016`.`Country` LIMIT 10;",
+            function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                res.render("index", {2017: data, 2016: data});
+            });
+    });
 
-// exports routes
-module.exports = router;
+/*    app.post("/", function (req, res) {
+        connection.query("INSERT INTO 2017 (Country, Country) VALUES (?, ?)", [req.body.country, req.body.country],
+            function (err, result) {
+                if (err) {
+                    throw err;
+                }
+                res.redirect("/")
+            });
+    });
+
+    app.delete("/:Country", function(req, res) {
+        connection.query("DELETE FROM quotes WHERE Country = ?", [req.params.country], function(err, result) {
+            if (err) {
+                throw err;
+            }
+            res.redirect("/");
+        });
+    });*/
+
+}

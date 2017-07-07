@@ -1,0 +1,16 @@
+<h1>Update the happinessScore with an id of {{this.country}}</h1>
+
+<form class="create-update-form" action="/{{this.country}}?_method=PUT" method="POST">
+
+  <div class="form-group">
+    <label for="auth">Happiness Rank:</label>
+    <input type="text" id="auth" name="happinessRank" value="{{this.happinessRank}}">
+  </div>
+
+  <div class="form-group">
+    <label for="quo">Happiness Score:</label>
+    <textarea id="quo" name="happinessScore" rows="8" cols="40">{{this.happinessScore}}</textarea>
+  </div>
+
+  <button type="submit">Update Happiness Score</button>
+</form>

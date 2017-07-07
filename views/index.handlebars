@@ -1,0 +1,38 @@
+<h1>2017 App</h1>
+
+<p>Manage Happiness with this app</p>
+
+<!-- Pass in data from server.js -->
+<ul>
+  {{#each 2017}}
+    <li>
+      <p><span class="label">Country:</span> {{this.Country}}</p>
+      <p><span class="label">Happiness Score:</span> {{this.happinessScore}}</p>
+      <p><span class="label">Happiness Rank:</span> {{this.happinessRank}}</p>
+
+      <form action="/{{this.id}}?_method=DELETE" method="POST">
+        <input type="hidden" name="id" value="{{this.id}}">
+        <button type="submit">Delete</button>
+      </form>
+
+      <a href="/{{this.id}}">Update this Happiness Score</a>
+    </li>
+  {{/each}}
+</ul>
+
+<h2>Add a Happiness Score</h2>
+
+<form class="create-form" action="/" method="POST">
+
+  <div class="form-group">
+    <label for="auth">Happiness Rank:</label>
+    <input type="text" id="auth" name="happinessRank">
+  </div>
+
+  <div class="form-group">
+    <label for="quo">Happiness Score:</label>
+    <textarea id="quo" name="happinessScore" rows="2" cols="20"></textarea>
+  </div>
+
+  <button type="submit">Add Happiness Score</button>
+</form>

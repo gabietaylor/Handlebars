@@ -1,31 +1,43 @@
-// NPMs 
+// NPM requires
 var express = require('express');
-// console.log(express);
-var bodyParser = require('body-parser');
-// console.log(bodyParser);
 var methodOverride = require('method-override');
-// console.log(methodOverride);
+var exphbs = require('express-handlebars');
+var bodyParser = require('body-parser');
+var mysql = require("mysql");
+
+var PORT = process.env.PORT || 3000;
+
+var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'Gabie748.',
+    database: 'happinessDB'
+});
+
+connection.connect(function (error) {
+    if (error) {
+        throw error;
+    }
+    console.log('Connected to MySQL server, as ID = ', connection.threadId);
+});
 
 var app = express();
-// console.log(app);
-// applies content from pudlib dir.
-app.use(express.static(process.cwd() + '/public'));
-app.use(express.static('public'));
 
-// Parse 
-app.use(bodyParser.urlencoded({ extended: false}));
+// override with the X-HTTP-Method-Override header in the request
+app.use(methodOverride('X-HTTP-Method-Override'));
 
-// Handlerbars
-var exphbs = require('express-handlebars');
-// console.log(exphbs);
-app.engine('handlerbars', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'handlerbars');
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
-var router = require('./controllers/controller.js');
-//console.log(router);
-// app.use('/', router);
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(methodOverride('_method'));
+app.use(bodyParser.text());
+app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 
-// open server
-var port = process.env.PORT || 3000;
-app.listen(port);
-console.log('Listening on ' + port);
+app.use(express.static('app/public'));
+
+require('./controllers/controller.js')(app);
+
+app.listen(PORT, function () {
+    console.log("App listening on PORT " + PORT);
+})
